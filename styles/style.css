@@ -1,0 +1,21 @@
+.mooli {
+    font-family: "Mooli", sans-serif;
+}
+
+.bg-all {
+    background: linear-gradient(rgba(255, 252, 252, 0.884),
+            rgba(255, 252, 252)),
+        url(../assets/bg.png);
+    background-size: 400px;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* background: linear-gradient(
+            rgba(255, 252, 252, 0.884),
+            rgba(255, 252, 252)
+          ),url(../assets/bg.png)
+          solid red overlay url("assets/bg.png"); /* background image */
+/* background-size: 400px; /* make image cover full area */
+/* background-position: center; center the image */
+/* background-attachment: fixed; */

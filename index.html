@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- title & icone -->
+    <title>Burgur Shop</title>
+    <link rel="shortcut icon"
+        href="https://scontent.fdac99-1.fna.fbcdn.net/v/t39.30808-6/572096057_1221415573343084_141731592387198979_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=vFpSGcQQEjAQ7kNvwFKgDLa&_nc_oc=Adl5ikX3tTeSBd-8XZulwMRuiJ3bH7sxD3irHSDTWNzNexZiz1efeeV1q4-4P1mCvqA&_nc_zt=23&_nc_ht=scontent.fdac99-1.fna&_nc_gid=kqTnwuDLW14989Tet3j59Q&oh=00_AfhLgliWzuYK9qqfYcRANGuLAVq3Vc5cNVineg1veUg6LA&oe=690D517A"
+        type="image/x-icon">
+
+    <!-- tailwind & daisy ui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- goggle font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mooli&display=swap" rel="stylesheet">
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="./styles/style.css">
+
+</head>
+
+<body class="mooli bg-all min-h-[1000px]">
+
+    <!-- navber -->
+    <header>
+        <nav>
+            <div class="navbar opacity-80 bg-[#febf00] shadow-sm md:px-5">
+                <div class="navbar-start">
+                    <div class="dropdown">
+                        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
+                        </div>
+                        <ul tabindex="-1"
+                            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                            <li><a>Item 1</a></li>
+                            <li>
+                                <a>Parent</a>
+                                <ul class="p-2">
+                                    <li><a>Submenu 1</a></li>
+                                    <li><a>Submenu 2</a></li>
+                                </ul>
+                            </li>
+                            <li><a>Item 3</a></li>
+                        </ul>
+                    </div>
+                    <a><img class="w-[55px]" src="./assets/logo.png" alt=""></a>
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a>Item 1</a></li>
+                        <li>
+                            <details>
+                                <summary>Parent</summary>
+                                <ul class="p-2">
+                                    <li><a>Submenu 1</a></li>
+                                    <li><a>Submenu 2</a></li>
+                                </ul>
+                            </details>
+                        </li>
+                        <li><a>Item 3</a></li>
+                    </ul>
+                </div>
+                <div class="navbar-end">
+                    <a class="btn bg-[#febf00]">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- banner section -->
+    <div>
+        <div class="p-5 md:p-0 max-w-[550px] mx-auto pt-10 md:pt-28">
+            <img src="./assets/logo.png" alt="">
+        </div>
+
+        <div
+            class="w-16 md:w-20 bg-[#febf00] rounded-full h-16 md:h-20 flex justify-center items-center mx-auto mt-12 md:mt-18 animate-bounce">
+            <i class="fa-solid fa-arrow-down text-xl"></i>
+        </div>
+
+        <div class="mt-10 md:mt-16 py-6 bg-[#febf00]">
+            <h3 class="text-xl font-bold text-center">Digital Menu Card For Our Lovely Customer</h3>
+        </div>
+
+    </div>
+
+    <!-- main section -->
+    <section class="w-11/12 mx-auto mt-36 mb-10 grid grid-cols-12 gap-6">
+
+        <!-- asideber -->
+        <aside class="col-span-12 md:col-span-3 p-3 bg-[#febf00] rounded-xl">
+            <!-- category -->
+            <div class="pb-4">
+                <div class="bg-white p-1 rounded-2xl mb-3">
+                    <h2 class="text-center text-xl font-bold ">Cateogries</h2>
+                </div>
+            </div>
+
+            <!-- all category -->
+            <div id="cateogries" class="border-t-2 border-yellow-500 pt-3">
+                
+            </div>
+        </aside>
+
+        <!-- main -->
+        <section class="col-span-12 md:col-span-6">
+            <h2 class="text-2xl text-center font-bold pb-6 border-b-2 border-gray-500 mb-8">Our Foods</h2>
+            <div class="">
+                <div class="bg-gray-600 rounded-2xl p-4">
+                    <div>
+                        <img class="max-w-[170px] object-cover rounded-2xl" src="https://www.themealdb.com/images/media/meals/lvn2d51598732465.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- asideber -->
+        <aside class="border-2 border-yellow-200 col-span-12 md:col-span-3">
+            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit, voluptates.</h3>
+        </aside>
+    </section>
+
+
+    <!-- js -->
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
