@@ -6,7 +6,7 @@ const allCategorage = () => {
         .then(data => {
             allCategoryDisplayShow(data.categories)
         })
-}
+};
 
 // all foods
 const allfoods = () => {
@@ -14,7 +14,7 @@ const allfoods = () => {
     fetch(url)
         .then(res => res.json())
         .then(foods => allFoodsDisplayShow(foods.foods))
-}
+};
 
 // spinner
 const spinner = isTrue => {
@@ -29,9 +29,44 @@ const spinner = isTrue => {
         container.classList.remove("hidden")
     }
 
+};
+
+// add card handler
+const addCardHandler = cards => {
+    console.log(cards);
+};
+
+// fetch modale 
+const myModal = id => {
+    console.log(id);
+    const url = `https://taxi-kitchen-api.vercel.app/api/v1/foods/${id}`;
+    fetch(url)
+    .then(res => res.json()) 
+    .then(data => showMyModal(data.details))
 }
 
+// display show modal
+const showMyModal = (food) => {
+  const modalCon = document.getElementById("modal-con");
+  modalCon.innerHTML = "";
+  const ecode = food.video.split("=")[1];
+  console.log(food.video.split("=")[1]);
 
+  modalCon.innerHTML = `
+        <iframe width="800" height="430" src="https://www.youtube.com/embed/${ecode}?si=mtV9WFTunGfEXlK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
+  `;
+  document.getElementById("my_modal_3").showModal();
+};
+
+
+
+// const showMyModal = data => {
+//     console.log(data);
+//     const modalCon = document.getElementById("modal-con");
+//     const div = document.createElement('div');
+//     div.innerHTML =``
+//     const modalContainer = document.getElementById("my_modal_3").showModal()
+// }
 
 // click handle 
 const btnHandler = id => {
@@ -52,7 +87,7 @@ const btnHandler = id => {
             allFoodsDisplayShow(data.foods)
             console.log(data)
         })
-}
+};
 
 // All Foods Display Show
 const allFoodsDisplayShow = (foods) => {
@@ -60,14 +95,14 @@ const allFoodsDisplayShow = (foods) => {
     container.innerHTML = ""
 
     foods.forEach(food => {
-         const div = document.createElement("div");
+        const div = document.createElement("div");
         div.innerHTML = `
         <div class="bg-white shadow-xl rounded-2xl p-4 flex gap-4 md:gap-16 mt-5 hover:bg-[#ffe598]">
             <div>
                 <img class="w-[190px] h-full md:w-[300px] object-cover rounded-2xl"
                      src=${food.foodImg} alt="">
             </div>
-            <div class="w-full my-3">
+            <div class="w-full my-3" onclick='myModal(${food.id})'>
                 <div>
                     <h2 class="text-lg font-semibold">${food.title}</h2>
                     <p class="text-xs text-center bg-[#febf00] max-w-[100px] py-1 rounded-xl px-2 text-[#614901]">${food.category}</p>
@@ -78,25 +113,14 @@ const allFoodsDisplayShow = (foods) => {
                         <h2 class="text-[14px] font-semibold text-[#ffbf00]">$ ${food.price} BDT</h2>
                         <div class="border border-gray-300 h-[1px] w-[20%]"></div>
                         </div>
-                    <div>
-                    <button onclick="cardHandler(${food})" class="btn text-[12px] text-[#614901] bg-[#febf00]"><i class="fa-solid fa-plus"></i> Add This Item</button>
-                    </div>
+                    <button onclick='addCardHandler(${JSON.stringify(food)})' class="btn text-[12px] text-[#614901] bg-[#febf00]"><i class="fa-solid fa-plus"></i> Add This Item</button>
                 </div>
         </div>
         `
         container.appendChild(div)
     });
     spinner(false)
-}
-
-// {
-//     "id": 52992,
-//     "title": "Soy-Glazed Meatloaves with Wasabi Mashed Potatoes & Roasted Carrots",
-//     "catId": 1,
-//     "foodImg": "https://www.themealdb.com/images/media/meals/o2wb6p1581005243.jpg",
-//     "price": 518,
-//     "category": "Beef"
-// }
+};
 
 // all categoriege display show
 const allCategoryDisplayShow = (data) => {
@@ -116,5 +140,5 @@ const allCategoryDisplayShow = (data) => {
     });
 };
 
-allfoods()
-allCategorage()
+allfoods();
+allCategorage();
