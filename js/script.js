@@ -31,44 +31,52 @@ const spinner = isTrue => {
 
 };
 
+
 // add card handler
 const addCardHandler = cards => {
     const container = document.getElementById("cards")
     const div = document.createElement('div');
+
     div.innerHTML = `
      <div class="mt-4 flex gap-3 bg-white border-b-2 border-gray-300 p-2 rounded-xl relative">
-        <img class="w-[55px] rounded-xl object-cover" src="https://www.themealdb.com/images/media/meals/0jv5gx1661040802.jpg" alt="">
+        <img class="w-[55px] rounded-xl object-cover" src="${cards.foodImg}" alt="">
         <div>
-            <h2 class=" font-semibold">name foods:</h2>
-            <h4 class="text-lg font-medium text-yellow-500">price:</h4>
+            <h2 class="text-xs font-semibold">${cards.title}</h2>
+            <h4 class="text-[15px] font-bold text-yellow-500">$ ${cards.price} BDT</h4>
         </div>
-        <div class="bg-red-500 w-[30px] h-[30px]  font-bold text-white rounded-full flex justify-center items-center absolute -top-3 -right-3"><i class="fa-solid fa-xmark"></i></div>
+        <div class="bg-red-500 w-[30px] h-[30px]  font-bold text-white rounded-full flex justify-center items-center absolute top-5 right-3"><i class="fa-solid fa-xmark"></i></div>
     </div>
     `
     container.appendChild(div);
+    // add money
+    const ammount = Number(document.getElementById("ammounts").innerText);
+    const totale = ammount + Number(cards.price);
+    document.getElementById("ammounts").innerText = totale;
 };
+
+
 
 // fetch modale 
-const myModal = id => {
-    console.log(id);
-    const url = `https://taxi-kitchen-api.vercel.app/api/v1/foods/${id}`;
-    fetch(url)
-        .then(res => res.json())
-        .then(data => showMyModal(data.details))
-}
+// const myModal = id => {
+//     console.log(id);
+//     const url = `https://taxi-kitchen-api.vercel.app/api/v1/foods/${id}`;
+//     fetch(url)
+//         .then(res => res.json())
+//         .then(data => showMyModal(data.details))
+// }
 
 // display show modal
-const showMyModal = (food) => {
-    const modalCon = document.getElementById("modal-con");
-    modalCon.innerHTML = "";
-    const ecode = food.video.split("=")[1];
-    console.log(food.video.split("=")[1]);
+// const showMyModal = (food) => {
+//     const modalCon = document.getElementById("modal-con");
+//     modalCon.innerHTML = "";
+//     const ecode = food.video.split("=")[1];
+//     console.log(food.video.split("=")[1]);
 
-    modalCon.innerHTML = `
-        <iframe width="400" height="230" class="rounded-2xl" src="https://www.youtube.com/embed/${ecode}?si=mtV9WFTunGfEXlK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
-  `;
-    document.getElementById("my_modal_3").showModal();
-};
+//     modalCon.innerHTML = `
+//         <iframe width="400" height="230" class="rounded-2xl" src="https://www.youtube.com/embed/${ecode}?si=mtV9WFTunGfEXlK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
+//   `;
+//     document.getElementById("my_modal_3").showModal();
+// };
 
 
 
@@ -76,16 +84,17 @@ const showMyModal = (food) => {
 //     console.log(data);
 //     const modalCon = document.getElementById("modal-con");
 //     const div = document.createElement('div');
-//     div.innerHTML =``
-//     const modalContainer = document.getElementById("my_modal_3").showModal()
+//     div.innerHTML =`
+    
+//     `
+//     // document.getElementById("my_modal_3").showModal()
 // }
 
 
 // click handle 
 const btnHandler = id => {
     spinner(true)
-    console.log(id)
-    const allBtns = document.querySelectorAll(".btns")
+     const allBtns = document.querySelectorAll(".btns")
     allBtns.forEach(btn => {
         btn.classList.remove("active")
     });
@@ -98,7 +107,6 @@ const btnHandler = id => {
         .then(res => res.json())
         .then(data => {
             allFoodsDisplayShow(data.foods)
-            console.log(data)
         })
 };
 
@@ -115,7 +123,7 @@ const allFoodsDisplayShow = (foods) => {
                 <img class="w-[190px] h-full md:w-[300px] object-cover rounded-2xl"
                      src=${food.foodImg} alt="">
             </div>
-            <div class="w-full my-3" onclick='myModal(${food.id})'>
+            <div class="w-full my-3">
                 <div>
                     <h2 class="text-lg font-semibold">${food.title}</h2>
                     <p class="text-xs bg-[#febf00] badge  text-[#614901]">${food.category}</p>
