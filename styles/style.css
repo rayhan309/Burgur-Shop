@@ -11,6 +11,11 @@
     background-attachment: fixed;
 }
 
+.active {
+    background-color: rgb(80, 76, 76);
+    color: white;
+}
+
 /* background: linear-gradient(
             rgba(255, 252, 252, 0.884),
             rgba(255, 252, 252)
