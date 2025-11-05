@@ -33,7 +33,7 @@ const spinner = isTrue => {
 
 
 // checkout card & add card handler
- const checkoutCard = [];
+ let checkoutCard = [];
 const addCardHandler = (cards) => {
 
     const isExist = checkoutCard.find(card => card.id === cards.id);
@@ -84,6 +84,8 @@ const displayCart = () => {
         container.innerHTML = "";
         checkoutCard.forEach(card => {
             const div = document.createElement('div');
+            div.classList.add("card");
+            div.id = card.id;
             div.innerHTML = `
             <div class="mt-4 flex gap-3 bg-white border-b-2 border-gray-300 p-2 rounded-xl relative">
                 <img class="w-[55px] rounded-xl object-cover" src="${card.foodImg}" alt="">
@@ -94,22 +96,23 @@ const displayCart = () => {
                 </div>
                 <div onclick='removeCard(this)' class="bg-red-500 w-[30px] h-[30px]  font-bold text-white rounded-full flex justify-center items-center absolute top-5 right-3"><i class="fa-solid fa-xmark"></i></div>
             </div>
-            `
+            ` 
             container.appendChild(div);
         });
 
-    };
+};    
+
 
 
 // remove card
 const removeCard = (card) => {
-
-    console.log(card);
-
-    // const filtredCard = checkoutCard.filter(cards => cards.id !== card);
-    // checkoutCard.push(...filtredCard);
+    const cardId = card.closest(".card").id
+    // console.log(cardId);
+    const filtredCard = checkoutCard.filter(cards => cards.id != cardId);
+    // displayCart(filtredCard);
+    checkoutCard =filtredCard;
+    // console.log({checkoutCard, filtredCard, card, cardId: card.id})
     
-
     const totalItems = document.getElementById("ammounts").innerText;
 
     const price = card.parentNode.children[1].children[1].children[0].innerText;
