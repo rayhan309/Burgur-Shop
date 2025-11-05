@@ -41,6 +41,9 @@ const addCardHandler = (cards) => {
 
     const isExist = checkoutCard.find(card => card.id === cards.id);
     if (isExist) {
+        // qountit increase
+        isExist.quantity += 1;
+        isExist.price = cards.price * isExist.quantity;
         Toastify({
             text: "Item already added  ",
             close: true,
@@ -66,6 +69,12 @@ const addCardHandler = (cards) => {
         }).showToast();
         checkoutCard.push(isExist ? { ...isExist, quantity: isExist.quantity + 1 } : { ...cards, quantity: 1 });
     }
+    // calculate total price
+    // total price
+    const totalItems = document.getElementById("ammounts").innerText;
+
+    const total = Number(totalItems) + Number(cards.price);
+    document.getElementById("ammounts").innerText = total;
 
     const displayCart = () => {
         const container = document.getElementById("cards")
@@ -88,6 +97,7 @@ const addCardHandler = (cards) => {
 
     };
     displayCart();
+
 
 };
 
@@ -170,7 +180,12 @@ const allFoodsDisplayShow = (foods) => {
                         <h2 class="text-[14px] font-semibold text-[#ffbf00]">$ ${food.price} BDT</h2>
                         <div class="border border-gray-300 h-[1px] md:w-[35%] w-[20%]"></div>
                         </div>
-                    <button onclick='addCardHandler(${JSON.stringify(food)})' class="btn text-[12px] text-[#614901] off bg-[#febf00]"><i class="fa-solid fa-plus"></i> Add This Item</button>
+
+                         <div class="flex gap-4 items-center ">
+                            <button class="btn text-[12px] text-[#614901] off bg-[#febf00]"><i class="fa-solid fa-info"></i></button>
+                            <button onclick='addCardHandler(${JSON.stringify(food)})' class="btn w-auto md:text-[12px] text-[10px] text-[#614901] off bg-[#febf00]"><i class="fa-solid fa-plus"></i> Add This Item</button>
+                        </div>
+
                 </div>
         </div>
         `
