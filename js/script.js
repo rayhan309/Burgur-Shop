@@ -32,28 +32,64 @@ const spinner = isTrue => {
 };
 
 
+// checkout card
+const checkoutCard = [];
+
+
 // add card handler
-const addCardHandler = cards => {
-    const container = document.getElementById("cards")
-    const div = document.createElement('div');
+const addCardHandler = (cards) => {
 
-    div.innerHTML = `
-     <div class="mt-4 flex gap-3 bg-white border-b-2 border-gray-300 p-2 rounded-xl relative">
-        <img class="w-[55px] rounded-xl object-cover" src="${cards.foodImg}" alt="">
-        <div>
-            <h2 class="text-xs font-semibold">${cards.title}</h2>
-            <h4 class="text-[15px] font-bold text-yellow-500">$ ${cards.price} BDT</h4>
-        </div>
-        <div class="bg-red-500 w-[30px] h-[30px]  font-bold text-white rounded-full flex justify-center items-center absolute top-5 right-3"><i class="fa-solid fa-xmark"></i></div>
-    </div>
-    `
-    container.appendChild(div);
-    // add money
-    const ammount = Number(document.getElementById("ammounts").innerText);
-    const totale = ammount + Number(cards.price);
-    document.getElementById("ammounts").innerText = totale;
+    const isExist = checkoutCard.find(card => card.id === cards.id);
+    if (isExist) {
+        Toastify({
+            text: "Item already added  ",
+            close: true,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            },
+            stopOnFocus: true,
+            duration: 3000,
+        }).showToast();
+    } else {
+        Toastify({
+            text: "Item added successfully  ",
+            close: true,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+            stopOnFocus: true,
+            duration: 3000,
+        }).showToast();
+        checkoutCard.push(isExist ? { ...isExist, quantity: isExist.quantity + 1 } : { ...cards, quantity: 1 });
+    }
+
+    const displayCart = () => {
+        const container = document.getElementById("cards")
+        container.innerHTML = "";
+        checkoutCard.forEach(card => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+            <div class="mt-4 flex gap-3 bg-white border-b-2 border-gray-300 p-2 rounded-xl relative">
+                <img class="w-[55px] rounded-xl object-cover" src="${card.foodImg}" alt="">
+                <div>
+                    <h2 class="text-xs font-semibold">${card.title}</h2>
+                    <h4 class="text-[15px] font-bold text-yellow-500">$ ${card.price} BDT</h4>
+                    <h4 class="text-[15px] font-bold text-yellow-500">Quantity: ${card.quantity}</h4>
+                </div>
+                <div class="bg-red-500 w-[30px] h-[30px]  font-bold text-white rounded-full flex justify-center items-center absolute top-5 right-3"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            `
+            container.appendChild(div);
+        });
+
+    };
+    displayCart();
+
 };
-
 
 
 // fetch modale 
@@ -85,7 +121,7 @@ const addCardHandler = cards => {
 //     const modalCon = document.getElementById("modal-con");
 //     const div = document.createElement('div');
 //     div.innerHTML =`
-    
+
 //     `
 //     // document.getElementById("my_modal_3").showModal()
 // }
@@ -94,7 +130,7 @@ const addCardHandler = cards => {
 // click handle 
 const btnHandler = id => {
     spinner(true)
-     const allBtns = document.querySelectorAll(".btns")
+    const allBtns = document.querySelectorAll(".btns")
     allBtns.forEach(btn => {
         btn.classList.remove("active")
     });
