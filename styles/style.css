@@ -16,15 +16,13 @@
     color: white;
 }
 
-/* .img-1 {
-    width: 100%;
-    height: 300px;
-    background-image: url("https://www.themealdb.com/images/media/meals/uyqrrv1511553350.jpg");
+.img-1 {
+    /* object-position: center; */
+    background-image: url("https://www.themealdb.com/images/media/meals/vtxyxv1483567157.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} */
+}
 
 /* background: linear-gradient(
             rgba(255, 252, 252, 0.884),
