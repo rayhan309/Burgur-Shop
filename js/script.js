@@ -32,18 +32,18 @@ const spinner = isTrue => {
 };
 
 
-// checkout card
-const checkoutCard = [];
-
-
-// add card handler
+// checkout card & add card handler
+ const checkoutCard = [];
 const addCardHandler = (cards) => {
 
     const isExist = checkoutCard.find(card => card.id === cards.id);
+
     if (isExist) {
         // qountit increase
         isExist.quantity += 1;
+
         isExist.price = cards.price * isExist.quantity;
+
         Toastify({
             text: "Item already added  ",
             close: true,
@@ -57,7 +57,7 @@ const addCardHandler = (cards) => {
         }).showToast();
     } else {
         Toastify({
-            text: "Item added successfully  ",
+            text: `Item added successfully  `,
             close: true,
             gravity: "top",
             position: "right",
@@ -67,16 +67,19 @@ const addCardHandler = (cards) => {
             stopOnFocus: true,
             duration: 3000,
         }).showToast();
-        checkoutCard.push(isExist ? { ...isExist, quantity: isExist.quantity + 1 } : { ...cards, quantity: 1 });
+        checkoutCard.push(isExist ? isExist : { ...cards, quantity: 1 });
     }
     // calculate total price
-    // total price
-    const totalItems = document.getElementById("ammounts").innerText;
+     const totalItems = document.getElementById("ammounts").innerText;
 
     const total = Number(totalItems) + Number(cards.price);
+
     document.getElementById("ammounts").innerText = total;
 
-    const displayCart = () => {
+    displayCart();
+};
+
+const displayCart = () => {
         const container = document.getElementById("cards")
         container.innerHTML = "";
         checkoutCard.forEach(card => {
@@ -86,55 +89,58 @@ const addCardHandler = (cards) => {
                 <img class="w-[55px] rounded-xl object-cover" src="${card.foodImg}" alt="">
                 <div>
                     <h2 class="text-xs font-semibold">${card.title}</h2>
-                    <h4 class="text-[15px] font-bold text-yellow-500">$ ${card.price} BDT</h4>
+                    <h4 class="text-[15px] font-bold text-yellow-500">$ <span>${card.price}</span> BDT</h4>
                     <h4 class="text-[15px] font-bold text-yellow-500">Quantity: ${card.quantity}</h4>
                 </div>
-                <div class="bg-red-500 w-[30px] h-[30px]  font-bold text-white rounded-full flex justify-center items-center absolute top-5 right-3"><i class="fa-solid fa-xmark"></i></div>
+                <div onclick='removeCard(this)' class="bg-red-500 w-[30px] h-[30px]  font-bold text-white rounded-full flex justify-center items-center absolute top-5 right-3"><i class="fa-solid fa-xmark"></i></div>
             </div>
             `
             container.appendChild(div);
         });
 
     };
-    displayCart();
 
 
+// remove card
+const removeCard = (card) => {
+
+    console.log(card);
+
+    // const filtredCard = checkoutCard.filter(cards => cards.id !== card);
+    // checkoutCard.push(...filtredCard);
+    
+
+    const totalItems = document.getElementById("ammounts").innerText;
+
+    const price = card.parentNode.children[1].children[1].children[0].innerText;
+
+    const removePrice = Number(totalItems) - Number(price)
+
+    document.getElementById("ammounts").innerText = removePrice;
+
+    card.parentNode.remove();
 };
 
 
-// fetch modale 
-// const myModal = id => {
-//     console.log(id);
-//     const url = `https://taxi-kitchen-api.vercel.app/api/v1/foods/${id}`;
-//     fetch(url)
-//         .then(res => res.json())
-//         .then(data => showMyModal(data.details))
-// }
+// add food info
+const addFoodInfo = id => {
+    fetch(`https://taxi-kitchen-api.vercel.app/api/v1/foods/${id}`)
+        .then(res => res.json())
+        .then(data => showMyModal(data.details));
+}
 
-// display show modal
-// const showMyModal = (food) => {
-//     const modalCon = document.getElementById("modal-con");
-//     modalCon.innerHTML = "";
-//     const ecode = food.video.split("=")[1];
-//     console.log(food.video.split("=")[1]);
+// show modal
+const showMyModal = (food) => {
+    const modalCon = document.getElementById("modal-con");
+    modalCon.innerHTML = "";
+    const ecode = food.video.split("=")[1];
+    console.log(food.video.split("=")[1]);
 
-//     modalCon.innerHTML = `
-//         <iframe width="400" height="230" class="rounded-2xl" src="https://www.youtube.com/embed/${ecode}?si=mtV9WFTunGfEXlK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
-//   `;
-//     document.getElementById("my_modal_3").showModal();
-// };
-
-
-
-// const showMyModal = data => {
-//     console.log(data);
-//     const modalCon = document.getElementById("modal-con");
-//     const div = document.createElement('div');
-//     div.innerHTML =`
-
-//     `
-//     // document.getElementById("my_modal_3").showModal()
-// }
+    modalCon.innerHTML = `
+        <iframe width="400" height="230" class="rounded-2xl" src="https://www.youtube.com/embed/${ecode}?si=mtV9WFTunGfEXlK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
+  `;
+    document.getElementById("my_modal_3").showModal();
+}
 
 
 // click handle 
@@ -182,7 +188,7 @@ const allFoodsDisplayShow = (foods) => {
                         </div>
 
                          <div class="flex gap-4 items-center ">
-                            <button class="btn text-[12px] text-[#614901] off bg-[#febf00]"><i class="fa-solid fa-info"></i></button>
+                            <button onclick='addFoodInfo(${food.id})' class="btn text-[12px] text-[#614901] off bg-[#febf00]"><i class="fa-solid fa-info"></i></button>
                             <button onclick='addCardHandler(${JSON.stringify(food)})' class="btn w-auto md:text-[12px] text-[10px] text-[#614901] off bg-[#febf00]"><i class="fa-solid fa-plus"></i> Add This Item</button>
                         </div>
 
