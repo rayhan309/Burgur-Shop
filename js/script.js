@@ -140,7 +140,7 @@ const showMyModal = (food) => {
     console.log(food.video.split("=")[1]);
 
     modalCon.innerHTML = `
-        <iframe width="400" height="230" class="rounded-2xl" src="https://www.youtube.com/embed/${ecode}?si=mtV9WFTunGfEXlK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
+        <iframe class="rounded-2xl max-w-[400px] h-[170px] md:h-[230px]" src="https://www.youtube.com/embed/${ecode}?si=mtV9WFTunGfEXlK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
   `;
     document.getElementById("my_modal_3").showModal();
 }
